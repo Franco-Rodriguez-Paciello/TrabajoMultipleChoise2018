@@ -4,16 +4,82 @@
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+.grid-container {
+  
+  display: grid;
+  grid-template-columns: 50% 50%  ;
+  grid-template-rows: 230px;
+  align-content: center;
+}
+.grid-item{
+text-align: center;
+border: 1px solid black;
+}
+    
 </style>
 
-<div class="example-wrapper">
+{% set num_pregunta = 1 %}
 
-	{% for pregunta in preguntas %}
-	<h1>{{pregunta.descripcion}}</h1>
-	{% endfor %}
+{% if cant_preguntas is divisible by(2)%}
+    {% set cant_preguntas = cant_preguntas-2 %}
+         {% for i in 0..cant_preguntas %}
+    {% if i is divisible by(2)%}
+            <div class="grid-container">
+                <div class="grid-item"> {{num_pregunta}}) {{preguntas[i].descripcion}}
+                	<div class="respuestas">
+                		{% set respuestas =RTA[num_pregunta-1] %}
+                		
+                		{% for respuesta in respuestas%}
+                		<br>
+                		(----) {{respuesta}}
+                		<br>
 
-  
-</div>
+                		{% endfor %}
+
+                		
+                	</div>
+                </div>
+
+                <div class="grid-item"> {{num_pregunta+1}})  {{preguntas[i+1].descripcion}}
+                	<div class="respuestas">
+                		{% set respuestas =RTA[num_pregunta-1] %}
+                		
+                		{% for respuesta in respuestas%}
+                		<br>
+                		(----) {{respuesta}}
+                		<br>
+
+                		{% endfor %}
+                	</div>
+
+                </div>
+            </div>
+    {% endif %}
+    {% set num_pregunta = num_pregunta+1 %}
+{% endfor %}
+	{% set num_pregunta = num_pregunta+1 %}
+     		<div class="grid-container">
+               <div class="grid-item">{{num_pregunta}}) {{preguntas[cant_preguntas+2].descripcion}}
+
+               	 <div class="respuestas">
+                		{% set respuestas =RTA[num_pregunta-1] %}
+                		
+                		{% for respuesta in respuestas%}
+                		<br>
+                		(----) {{respuesta}}
+                		<br>
+
+                		{% endfor %}
+
+                		
+                	</div>
+               </div>
+
+            </div>
+{% endif %}
+
+
+
+
+
 {% endblock %}
