@@ -13,15 +13,17 @@ class DefaultController extends AbstractController
     /**
      * @Route("/default", name="default")
      */
-    public function index()
+    public function index($RTA,$Preguntas)
     {	
-    	$Archivo_parseado = Yaml::parseFile(__DIR__.'/preguntas.yml');
-        $Preguntas = $Archivo_parseado["preguntas"];
+    	
         $cant_preguntas=count($Preguntas);
         $cant_preguntas=$cant_preguntas-1;
 
+        return $this->render('default/index.html.twig', [
+            'preguntas' => $Preguntas,"cant_preguntas" => $cant_preguntas,"RTA" => $RTA]);
+    }
 
-    	//dump($Archivo_parseado);
+    public function Mezclador($Preguntas){
         shuffle($Preguntas);
         $RTA=[];
         foreach ($Preguntas as $pregunta ) {
@@ -31,7 +33,16 @@ class DefaultController extends AbstractController
             $RTA[]=$mezclar_preg;
 
         }
-        return $this->render('default/index.html.twig', [
-            'preguntas' => $Preguntas,"cant_preguntas" => $cant_preguntas,"RTA" => $RTA]);
+        return $RTA;
+
     }
+
+     public function Parseador(){
+        $Archivo_parseado = Yaml::parseFile(__DIR__.'/preguntas.yml');
+        $Preguntas = $Archivo_parseado["preguntas"];
+
+        return $Preguntas;
+    }
+
+
 }
