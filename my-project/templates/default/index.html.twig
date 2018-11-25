@@ -104,6 +104,7 @@ grid-template-columns: auto auto auto auto auto ;
                 <div class="grid-item"> {{num_pregunta}}) {{preguntas[i].descripcion}}
                 	<div class="respuestas">
                 		{% set respuestas =RTA[num_pregunta-1] %}
+
                 		
                 		{% for respuesta in respuestas%}
                 		<br>
@@ -136,7 +137,7 @@ grid-template-columns: auto auto auto auto auto ;
 
                 <div class="grid-item"> {{num_pregunta+1}})  {{preguntas[i+1].descripcion}}
                 	<div class="respuestas">
-                		{% set respuestas =RTA[num_pregunta-1] %}
+                		{% set respuestas =RTA[num_pregunta] %}
                 		
                 		{% for respuesta in respuestas%}
                 		<br>
@@ -148,7 +149,7 @@ grid-template-columns: auto auto auto auto auto ;
 
                 		{% endfor %}
                 		<br>
-                		{% if not( "ocultar_opcion_todas_las_anteriores" in preguntas[i]|keys) %}
+                		{% if not( "ocultar_opcion_todas_las_anteriores" in preguntas[i+1]|keys) %}
                 			
                 			(----) Todas las anteriores
                 			<br>
@@ -156,7 +157,7 @@ grid-template-columns: auto auto auto auto auto ;
 
                    	 		{% endif %}
 
-                   	 	{% if not( "ocultas_opcion_ninguna_las_anteriores" in preguntas[i]|keys) %}
+                   	 	{% if not( "ocultas_opcion_ninguna_las_anteriores" in preguntas[i+1]|keys) %}
                    	 		
                 			(----) ninguna las anteriores
                 			<br>
@@ -293,7 +294,7 @@ grid-template-columns: auto auto auto auto auto ;
 	
 {% endif %}
 
-
+<a href="/RTA" target="_blank" id="RTA" type="button">Respuestas</a>
 
 
 {% endblock %}
