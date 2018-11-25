@@ -8,12 +8,23 @@
   
   display: grid;
   grid-template-columns: 50% 50%  ;
-  grid-template-rows: 230px;
+  grid-template-rows: 320px;
   align-content: center;
+  padding-top:1%;
+  padding-right:1%;
+  padding-bottom:1%;
+  padding-left:1%;
+  
+
 }
 .grid-item{
 text-align: center;
+ padding-top:2%;
 border: 1px solid black;
+
+}
+.respuestas{
+text-align: center;
 }
     
 </style>
@@ -34,8 +45,26 @@ border: 1px solid black;
                 		(----) {{respuesta}}
                 		<br>
 
-                		{% endfor %}
+                			
 
+
+                		{% endfor %}
+                		<br>
+
+                		{% if not( "ocultar_opcion_todas_las_anteriores" in preguntas[i]|keys) %}
+                			
+                			(----) Todas las anteriores
+                			<br>
+                			<br>
+                			
+
+                   	 		{% endif %}
+                   	 	{% if not( "ocultas_opcion_ninguna_las_anteriores" in preguntas[i]|keys) %}
+                   	 	
+                			(----) ninguna las anteriores
+                			<br>
+
+                   	 		{% endif %}
                 		
                 	</div>
                 </div>
@@ -49,7 +78,26 @@ border: 1px solid black;
                 		(----) {{respuesta}}
                 		<br>
 
+                			
+
+
                 		{% endfor %}
+                		<br>
+                		{% if not( "ocultar_opcion_todas_las_anteriores" in preguntas[i]|keys) %}
+                			
+                			(----) Todas las anteriores
+                			<br>
+                			<br>
+
+                   	 		{% endif %}
+
+                   	 	{% if not( "ocultas_opcion_ninguna_las_anteriores" in preguntas[i]|keys) %}
+                   	 		
+                			(----) ninguna las anteriores
+                			<br>
+
+                   	 		{% endif %}
+                		
                 	</div>
 
                 </div>
@@ -69,8 +117,24 @@ border: 1px solid black;
                 		(----) {{respuesta}}
                 		<br>
 
-                		{% endfor %}
+                			
 
+
+                		{% endfor %}
+                		<br>
+                		{% if not( "ocultar_opcion_todas_las_anteriores" in preguntas[cant_preguntas+2]|keys) %}
+                			
+                			(----) Todas las anteriores
+                			<br>
+                			<br>
+
+                   	 		{% endif %}
+                   	 	{% if not( "ocultas_opcion_ninguna_las_anteriores" in preguntas[cant_preguntas+2]|keys) %}
+                   	 		
+                			(----) ninguna las anteriores
+                			<br>
+
+                   	 		{% endif %}
                 		
                 	</div>
                </div>
