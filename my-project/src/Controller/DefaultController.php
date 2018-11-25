@@ -13,11 +13,11 @@ class DefaultController extends AbstractController
    public function index()
     {
         $Archivo_parseado=$this->Parseador("preguntas.yml");
-
+        
         $Preguntas = $Archivo_parseado["preguntas"];
-
-        $RTA = $this->Mezclador($Preguntas);
-
+         
+        $RTA = $this->Mezclador($Preguntas)[0];
+        $Preguntas=$this->Mezclador($Preguntas)[1];
         $cant_preguntas=count($Preguntas);
         $cant_preguntas=$cant_preguntas-1;
 
@@ -26,8 +26,8 @@ class DefaultController extends AbstractController
     }
 
     public function Mezclador($Preguntas){
-        $Preguntas=shuffle($Preguntas);
-
+       shuffle($Preguntas);
+        
         $RTA=[];
         foreach ($Preguntas as $pregunta ) {
 
@@ -39,24 +39,25 @@ class DefaultController extends AbstractController
 
         $Ordenpreg = Yaml::dump($Preguntas);
 
-        file_put_contents(DIR.'/nombrearchivopregultexam.yml', $Ordenpreg);
+        file_put_contents(__DIR__.'/nombrearchivopregultexam.yml', $Ordenpreg);
 
         $Ordenrta = Yaml::dump($RTA);
 
-        file_put_contents(DIR.'/nombrearchivortaultexam.yml', $Ordenrta);
+        file_put_contents(__DIR__.'/nombrearchivortaultexam.yml', $Ordenrta);
 
-        return $RTA;
+        return [$RTA,$Preguntas];
 
     }
 
      public function RTA(){
 
-        if(file_exists( DIR.'/nombrearchivopregultexam.yml') ){
+        if(file_exists( __DIR__.'/nombrearchivopregultexam.yml') ){
 
-            $Preguntas = $this->Parsear_Archivo("/nombrearchivopregultexam.yml");
-            $Respuestas = $this->Parsear_Archivo("/nombrearchivortaultexam.yml");
-
-            return $this->render('default/ViewMostrarRtas.html.twig', ["preguntas" => $Preguntas, "Respuestas_mezcladas" => $Respuestas]);
+            $Preguntas = $this->Parseador("/nombrearchivopregultexam.yml");
+            $Respuestas = $this->Parseador("/nombrearchivortaultexam.yml");
+            $cant_preguntas=count($Preguntas);
+            $cant_preguntas=$cant_preguntas-1;
+            return $this->render('default/rta.html.twig', ["preguntas" => $Preguntas, "RTA" => $Respuestas,"cant_preguntas"=>$cant_preguntas]);
         }
         else{
             return False;
@@ -65,8 +66,8 @@ class DefaultController extends AbstractController
     }
 
      public function Parseador($Archivo){
-        $Archivo_parseado = Yaml::parseFile(DIR.'/'.$Archivo);
+        $Archivo_parseado = Yaml::parseFile(__DIR__.'/'.$Archivo);
 
-        return $Preguntas;
+        return $Archivo_parseado;
     }
 }
