@@ -1,5 +1,5 @@
-#Multiple Choice
-	Este es un sistema de generacion automatica de examenes multiple choice.
+# Multiple Choice
+Este es un sistema de generacion automatica de examenes multiple choice.
 Toma preguntas de un archivo yml y las devuelve en un orden aleatorio, tanto las preguntas como las respuestas.
 Esto genera un examen cada vez que se ejecuta, y al pie de la hoja hay un boton que genera una nueva pestaña
 con el mismo examen pero esta vez con las respuestas resaltadas en color verde. El primer incoveniente es que 
